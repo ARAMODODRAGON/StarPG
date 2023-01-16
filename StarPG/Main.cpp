@@ -2,13 +2,14 @@
 #include <SFML\Main.hpp>
 #include <SFML\Window.hpp>
 #include <SFML\Graphics.hpp>
+#include "game.hpp"
 
 int main(int argc, char** argv) {
 
 	// window
-	sf::RenderWindow rw;
-	rw.setSize({ 1280, 720 });
+	sf::RenderWindow rw(sf::VideoMode(1280, 720), "Hello World!");
 
+	game* g = new game();
 
 	// main loop
 	while (rw.isOpen()) {
@@ -23,18 +24,20 @@ int main(int argc, char** argv) {
 				default: break;
 			}
 		}
+		g->on_update();
 
-		// render
-		
 		// clear the screen to black
 		rw.clear();
 
-		// draw
+		// draw the game
+		g->on_draw(rw);
 
 		// show screen
 		rw.display();
 
 	}
+
+	delete g, g = nullptr;
 
 	return 0;
 }
